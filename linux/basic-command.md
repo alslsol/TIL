@@ -82,10 +82,25 @@ ex. rm -r markup: markup 폴더 삭제해줌
 ex. `cat README.md`: README.md 파일의 내용을 출력해줌
 
 
-## git init: TIL 폴더 내에 .git이라는 숨김 폴더 생김
+# git hub에 올리기
+
+`git init`: TIL 폴더 내에 .git이라는 숨김 폴더 생김
 
 이걸 만듦으로써 zip 파일로 묶어서 git hub에 올리려는 것
 
 cf. [git book](https://git-scm.com/book/ko/v2)
 
 git: 파일 내 변화량을 트래킹하기 편한 툴임
+
+`git add .`: 현재 폴더(=.) 내에 있는 하위 폴더 모든 데이터를 포함해서 올려달라는 명령 >> 스테이지 위로 모든 파일 올리는 것
+그러면 어디론가 추가하게 된 것
+
+`git commit`: 사진 찍으려는 것
+    누가 작성한 건지 출처 적어줘야 함 >> git hub 가입한 이메일 입력해야 함
+
+`-m`: 메시지를 의미함 >> 사진에 메시지 적어주려는 것, 어떤 변화 있는지 적어주려는 것
+
+- 화살표 방향키 누르면 이전 코드 다시 불러올 수 있음
+
+- 올린 뒤 수정하면, 변화량 다시 측정해서 git에 올려야 함
+-> git add, commit 반복하면 됨
