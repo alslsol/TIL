@@ -1,9 +1,9 @@
-# git 기본 개념
+# 1. git 기본 개념
 cf. [gitbook](https://git-scm.com/book/ko/v2)
 
 ## 버전 관리
 
-### 분산버전 관리 시스템
+### 분산 버전 관리 시스템
 - 클라이언트(나)와 서버(github) 모두가 똑같은 데이터를 유지해 버전을 관리하는 시스템
     - 동일 콘텐츠 여러 서버에 저장
     - 변화량 트래킹하기 쉬움
@@ -21,7 +21,7 @@ cf. [gitbook](https://git-scm.com/book/ko/v2)
 
  - **working directory**: 현재 작성 중인 코드/파일
 - **staging directory**: add 명령어로 무대 위로 올라간 파일들
-- **git directory**(repository): commit 명령어로 찍힌 스냅샷을 저장하는 공간
+- **git directory**(repository): `commit`으로 찍힌 스냅샷을 저장하는 공간
 
 ## CLI
 - **GUI**: 일반적인 그래픽 인터페이스 >> ex. windows
@@ -51,10 +51,10 @@ git config --global user.email johndoe@example.com
 
 ## 수정/저장 사이클
 ### 과정
-- untracked 상태에서 add 하면, staged로 올라감
-- commit하면 unmodified 상태로 넘어가며 트래킹 시작됨
+- untracked 상태에서 `add` 하면, staged로 올라감
+- `commit`하면 unmodified 상태로 넘어가며 트래킹 시작됨
 - 여기서 수정 시 modified 상태로 전환됨
-- 이때 다시 commit하면 unmodified로 회귀
+- 이때 다시 `commit`하면 unmodified로 회귀
 ### 용어
 - **tracked** 파일: 관리대상 >> 이미 스냅샷에 포함된 파일
     - **modified**: 수정된 상태
@@ -74,7 +74,7 @@ git config --global user.email johndoe@example.com
 - **생성**: `git remote add (별명) (링크)`
 - **삭제**: `git remote remove (별명/링크)`
 
-# 웹페이지 만들기
+### 예제) 웹페이지 만들기
 - 템플릿 다운 >> TIL 폴더 내 새폴더 만들어 템플릿 저장
 - 내 맘대로 웹페이지 코드 수정 >> <open in browser> 통해 수정본 확인하며 작업
 
@@ -83,11 +83,11 @@ git config --global user.email johndoe@example.com
 
 git add . #github-page 폴더에서 현재 폴더 기준 모든 데이터를 staging area로 올림
 git commit -m "page" #'page' 메시지 달아서, 스냅샷 찍음
-git remote add origin https://github.com/alslsol/alslsol.github.io/settings #원격저장소에 저장
-git push origin master #원격저장소에 올린 내용 웹페이지로 발행
+git remote add origin https://github.com/alslsol/alslsol.github.io/settings #원격 저장소에 저장
+git push origin master #원격 저장소에 올린 내용 웹페이지로 발행
 ```
 
-# remote 저장소를 활용한 협업
+### 예제) remote 저장소를 활용한 협업
 ```python
 #데이터 저장하기
 
@@ -124,3 +124,34 @@ git pull origin master #github에 저장된 내용 불러옴
     - 이후 git pull 하면 >> 4가지 선택지 뜸 >> 적절히 선택지 클릭
     - 이후 커밋해야 완전히 합쳐지기 완료
         - ex. `git commit -m "merging"`
+
+# 2. git 명령어 정리
+- `git init`
+    - 현재 디렉토리에 `.git` 폴더 생성해 >> 새 git 저장소를 초기화
+- `git clone {remote_url}`
+    - 해당 링크의 프로젝트를 복사해서 git 저장소 클론을 만드는 방법
+    - `git clone (링크) (폴더명)`: 다른 이름으로 복사해 저장
+- `git status`
+    - 현재 git의 상태를 확인 >> tracked, untracked 파일 구분해 표시
+- `git add {파일명/폴더명}`
+    - working directory에서 변경된 파일을 staging area로 이동
+    - ex. `git add .`: 현재 내 위치 기준, 모든 파일/폴더를 staging area로 올림
+- `git commit -m "메시지"`
+    - staging area에 있는 변경사항을 스냅샷 찍음
+    - options:
+        - `git commit --amend`: 파일 빠뜨렸거나, 메시지 라벨 수정할 때 >> 되돌려서 다시 커밋하기
+- `git log`
+    - 커밋의 히스토리 조회
+    - `q` 입력 >> 다시 터미널로 나올 수 있음
+    - options:
+       - `--oneline`: 각 커밋을 한 라인으로 보여줌 >> 많은 커밋을 한 번에 조회 시 유용
+       - `--graph`: 각 커밋에 선 달아서 보여줌
+- `git remote`
+    - 원격 저장소 관리 명령어 >> 데이터 저장할 원격 저장소 지정
+    - options:
+        - `git remote -v`: 실제 저장된 링크주소 알려줌 >> 근데 링크 매번 언급하기 어려우니, origin이라는 별명으로 대체한 것
+       - `git remote add (별명) (링크)`: 원격 저장소 새로 지정 + 링크 대신할 별명 설정
+            - 최초 한번만 지정하면 됨 >> `master` 있으면 이미 지정돼 있으니, `git push`만 해도 됨
+        - `git remote remove (별명/링크)`: 원격 저장소 지정 삭제
+- `git push (별명) master`: 원격 저장소에 저장하기
+- `git pull (별명) master`: 원격 저장소에서 데이터 불러오기
