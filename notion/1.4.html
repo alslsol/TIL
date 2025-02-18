@@ -1,0 +1,998 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>1.4 파이썬 문법</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="199f558b-ed61-800f-81b4-f9ee20568bdd" class="page sans"><header><h1 class="page-title">1.4 파이썬 문법</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>생성 일시</th><td><time>@2025년 2월 13일 오전 9:32</time></td></tr></tbody></table></header><div class="page-body"><h1 id="199f558b-ed61-80b7-9705-c9509df95a60" class="">0. intro</h1><h2 id="199f558b-ed61-80df-811b-c752f5aac234" class="">단축키(shortcut)</h2><ul id="199f558b-ed61-801f-b647-e9e4de87d0bd" class="bulleted-list"><li style="list-style-type:disc">ctrl + enter: 현재 셀 실행</li></ul><ul id="199f558b-ed61-8043-8b43-d7456ee93ab9" class="bulleted-list"><li style="list-style-type:disc">shift + enter: 현재 셀 실행 + 아래로 이동</li></ul><ul id="199f558b-ed61-8048-b05a-c38c8eb21782" class="bulleted-list"><li style="list-style-type:disc">alt + enter: 현재 셀 실행 + 아래 새 셀 추가</li></ul><ul id="199f558b-ed61-803f-a412-f0698cca4631" class="bulleted-list"><li style="list-style-type:disc">esc: 방향키로 셀 선택 가능 → enter: 셀 선택<ul id="199f558b-ed61-8027-864d-e22017a44369" class="bulleted-list"><li style="list-style-type:circle">m: markdown으로 변경</li></ul></li></ul><h2 id="199f558b-ed61-802f-9fc5-e53b4b956043" class="">주의</h2><ol type="1" id="199f558b-ed61-80d6-8fb0-ffa9e6fdeefb" class="numbered-list" start="1"><li>대소문자 주의: ex. Apple &lt;-&gt; apple</li></ol><ol type="1" id="199f558b-ed61-80e2-95b3-d78089766669" class="numbered-list" start="2"><li>띄어쓰기 주의: ex. <code>git add.</code> &lt;-&gt; <code>git add .</code></li></ol><ol type="1" id="199f558b-ed61-801d-9aad-c5f4247bd32b" class="numbered-list" start="3"><li>오타 주의: ex. message &lt;-&gt; massage</li></ol><p id="199f558b-ed61-805f-884a-d6e392a9de9a" class="">
+</p><hr id="199f558b-ed61-80c5-a94f-cd929439956c"/><h1 id="199f558b-ed61-8023-82fa-ffaff2047c86" class="">1. 변수</h1><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-803e-8449-e1fca6ef1ab7" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">var_name = value #변수명에 특정 값을 입력한단 것 의미</code></pre><ul id="199f558b-ed61-8085-91f1-ecc3a7ad7ff7" class="bulleted-list"><li style="list-style-type:disc">변수명은 뭐든 사용O<ul id="199f558b-ed61-80a6-9986-e856f1c27626" class="bulleted-list"><li style="list-style-type:circle">다만 영어, 숫자, _만 이용할 것</li></ul><ul id="199f558b-ed61-80db-80a4-dee1d4312d07" class="bulleted-list"><li style="list-style-type:circle">키워드는 불가능</li></ul></li></ul><ul id="199f558b-ed61-8042-b454-ee19c829ffe3" class="bulleted-list"><li style="list-style-type:disc"><strong>개념 원리</strong>: 객체라는 상자가 있음 &gt;&gt; 이 상자의 이름을 a라고 할 때 &gt;&gt; a에 1이라는 값을 부여하는 것</li></ul><ul id="199f558b-ed61-8085-afbd-d23132e5a629" class="bulleted-list"><li style="list-style-type:disc">파이썬: 컴파일/링크 단계 생략 가능한 인터프리터 언어 &gt;&gt; 대화형으로 사용 가능</li></ul><ul id="199f558b-ed61-8010-b319-eb1ad64b2c0c" class="bulleted-list"><li style="list-style-type:disc">컴파일: 자연어를 컴퓨터가 이해 가능한 언어로 전환/번역하는 작업 &gt;&gt; 통번역하는 방식<ul id="199f558b-ed61-800f-a98d-ffdadd648b35" class="bulleted-list"><li style="list-style-type:circle">이를 생략하니 파이썬은 빠르게 작업 가능한 것 &gt;&gt; 파일은 줄마다 실시간 번역</li></ul><ul id="199f558b-ed61-80a3-bcdd-ceab1d6cf9ca" class="bulleted-list"><li style="list-style-type:circle">대신 파이썬은 개발 시간은 빨라도, 실행 시간은 느림 &gt;&gt; C/Java: 개발 시간 길지만, 실행 시간 빠름</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8030-b9d7-ea6a84dbd983" class="code"><code class="language-JavaScript">a = 1 #1이라는 값을 변수a에 담은 것
+print(a)
+
+#파이썬의 기본명사인 &#x27;키워드&#x27;는 변수명X
+import keyword
+keyword.kwlist
+
+#단어 띄어쓰기X &gt;&gt; 언더바로 연결하기
+seoul_dust_rate = 150
+print(seoul_dust_rate)</code></pre><h2 id="199f558b-ed61-80ab-8243-d8da30e818ee" class="">1.1 number</h2><ul id="199f558b-ed61-80f3-9563-e12438f3b0fb" class="bulleted-list"><li style="list-style-type:disc">파이썬: 상자(객체) 만들면 숫자든 문자든 뭐든 넣을 수 있음<ul id="199f558b-ed61-80f8-932d-fa729cc78009" class="bulleted-list"><li style="list-style-type:circle">이외 언어: <code>int a</code> 등 숫자만 넣을 수 있는 객체 등 별도로 있음</li></ul></li></ul><ul id="199f558b-ed61-8051-8a05-c104ee254e00" class="bulleted-list"><li style="list-style-type:disc">int: 정수</li></ul><ul id="199f558b-ed61-80d1-accd-d185a1e62794" class="bulleted-list"><li style="list-style-type:disc">float: 실수</li></ul><ul id="199f558b-ed61-8068-9efd-c48b51446aac" class="bulleted-list"><li style="list-style-type:disc">complex: 복소수</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-80f5-9a10-fe3741960d58" class="code"><code class="language-JavaScript">a = 100
+b = 1.1
+c = 1 + 1j #j: 복소수 &gt;&gt; 실수보다 넓은 개념
+
+print(a)
+print(b)
+print(c)
+
+print(type(a)) #type():변수 실행하는 함수 &gt;&gt; a라는 변수의 유형을 알려달라는 함수 &gt;&gt; int: 정수
+print(type(b)) #float: 실수
+print(type(c)) #복소수(complex)</code></pre><h2 id="199f558b-ed61-808d-ba37-e714ddcf80cc" class="">1.2 boolean: T/F</h2><p id="199f558b-ed61-8024-8fe6-cafdb3b539b2" class="">a = True #대문자로 적어야 함<br/>b = False<br/></p><p id="199f558b-ed61-80bd-be45-edfbeb6c7e1d" class="">print(a)<br/>print(b)<br/></p><p id="199f558b-ed61-80ff-b03d-e54141aa439a" class="">print(type(a))<br/>print(type(b))<br/></p><h2 id="199f558b-ed61-8009-bd98-d976175dad70" class="">1.3 string(문자열)s</h2><ul id="199f558b-ed61-809e-935f-fc04095b52d7" class="bulleted-list"><li style="list-style-type:disc"><code>&#x27;</code>, <code>&quot;</code> 이용해 표현</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-80fe-9b20-c6d11ccc8482" class="code"><code class="language-JavaScript">#특정 단어 강조할 때, 문자열과 강조하려는 단어 서로 다른 기호 써야 함
+print(&quot;hello my name is &#x27;sori&#x27;&quot;)</code></pre><h3 id="199f558b-ed61-80e9-b63b-ef70210287e3" class="">1.3.1 string interpolation: 문자열 사이에 변수 넣기</h3><ul id="199f558b-ed61-80d3-92c3-f10c1fbf6cd8" class="bulleted-list"><li style="list-style-type:disc">%-formatting</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-803b-96ed-debe06348681" class="code"><code class="language-JavaScript">print(&#x27;홍길동은 %s살입니다.&#x27; % age)</code></pre><ul id="199f558b-ed61-80ca-a163-d69c9d4dfc71" class="bulleted-list"><li style="list-style-type:disc">str.format( )</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8061-8d0e-dac99e1b31ab" class="code"><code class="language-JavaScript">print(&#x27;홍길동은 {}살 입니다.&#x27; .format(age))</code></pre><ul id="199f558b-ed61-802a-a39e-e60b50606dd3" class="bulleted-list"><li style="list-style-type:disc">f-string</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8094-87a9-eefc2b9ffd47" class="code"><code class="language-JavaScript">print(f&#x27;홍길동은 {age}살 입니다.&#x27;)</code></pre><p id="199f558b-ed61-807f-81ad-f89d212e0b53" class="">
+</p><hr id="199f558b-ed61-8054-95b1-ea1d54623990"/><h1 id="199f558b-ed61-80a9-b9f7-f7a86e0d2b80" class="">2. 연산자</h1><h2 id="199f558b-ed61-80ca-b7f4-e19c4165cae9" class="">2.1 산술 연산자</h2><ul id="199f558b-ed61-809a-9845-c700797e52f1" class="bulleted-list"><li style="list-style-type:disc"><code>+</code> 더하기</li></ul><ul id="199f558b-ed61-8088-be17-d02c3815812a" class="bulleted-list"><li style="list-style-type:disc"><code>-</code> 빼기</li></ul><ul id="199f558b-ed61-80ef-8ad9-cfc7f76bc010" class="bulleted-list"><li style="list-style-type:disc"><code>*</code> 곱셈</li></ul><ul id="199f558b-ed61-808c-a968-eb5edfef6dfe" class="bulleted-list"><li style="list-style-type:disc"><code>/</code> 나눗셈</li></ul><ul id="199f558b-ed61-80b7-8c77-d42da9f34b02" class="bulleted-list"><li style="list-style-type:disc"><code>**</code> 제곱</li></ul><ul id="199f558b-ed61-8088-82f1-f2546ca6814e" class="bulleted-list"><li style="list-style-type:disc"><code>//</code> 몫</li></ul><ul id="199f558b-ed61-80fa-9eab-fa37593d33ca" class="bulleted-list"><li style="list-style-type:disc"><code>%</code> 나머지</li></ul><ul id="199f558b-ed61-8082-a540-d99c1a3c4f39" class="bulleted-list"><li style="list-style-type:disc"><code>divmod( )</code>: (몫, 나머지) 데이터 세트 도출하는 함수</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8060-90db-ccd44de93a57" class="code"><code class="language-JavaScript">a = 10
+b = 3
+result = divmod(a, b)
+print(result)
+&gt; (3, 1)</code></pre><h2 id="199f558b-ed61-803e-b294-f10313dcf78a" class="">2.2 비교 연산자</h2><ul id="199f558b-ed61-806b-a35c-ea5a54a24faa" class="bulleted-list"><li style="list-style-type:disc"><code>&gt;</code> <code>&lt;</code>: 초과/미만</li></ul><ul id="199f558b-ed61-8035-9d5c-c63c55247904" class="bulleted-list"><li style="list-style-type:disc"><code>≥</code> <code>≤</code>: 이상/이하</li></ul><ul id="199f558b-ed61-80dd-b37c-f97ba32a5bec" class="bulleted-list"><li style="list-style-type:disc"><code>==</code>: 동일 값인지</li></ul><ul id="199f558b-ed61-80bd-ad66-f9445abb4e2d" class="bulleted-list"><li style="list-style-type:disc"><code>!=</code>: 다른 값인지</li></ul><h2 id="199f558b-ed61-806a-a2e3-d28082d5b1ee" class="">2.3 논리 연산자</h2><ul id="199f558b-ed61-80df-987a-c96320d6896c" class="bulleted-list"><li style="list-style-type:disc"><code>and</code>: 양쪽 모두 T면, <code>True</code> 반환</li></ul><ul id="199f558b-ed61-801e-85ca-e48e2fe54b95" class="bulleted-list"><li style="list-style-type:disc"><code><strong>or</strong></code>: 하나라도 T면 <code>True</code> 반환, 모두 F면 <code>False</code> 반환</li></ul><ul id="199f558b-ed61-80f1-9b8e-ffa0263d3b32" class="bulleted-list"><li style="list-style-type:disc"><code><strong>not</strong></code>: 상태를 부정하는 역할</li></ul><h2 id="199f558b-ed61-8040-80a4-c888a6b3b9bc" class="">2.4 복합 연산자</h2><ul id="199f558b-ed61-8053-84cc-e3413c86169e" class="bulleted-list"><li style="list-style-type:disc"><code>a += b</code> == <code>a = a + b</code></li></ul><ul id="199f558b-ed61-809c-a3d8-cb00bd59a747" class="bulleted-list"><li style="list-style-type:disc"><code>a -= b</code> == <code>a = a - b</code></li></ul><ul id="199f558b-ed61-8072-b7c7-d89c31ff0f9c" class="bulleted-list"><li style="list-style-type:disc"><code>a *= b</code> == <code>a = a * b</code></li></ul><ul id="199f558b-ed61-80e7-8766-fed6ccdcb835" class="bulleted-list"><li style="list-style-type:disc"><code>a /+ b</code> == <code>a = a / b</code></li></ul><h2 id="199f558b-ed61-8037-9e9a-cf319fab077b" class="">2.5 기타 연산자</h2><ul id="199f558b-ed61-802e-9601-c6f37fce094a" class="bulleted-list"><li style="list-style-type:disc"><strong>연결(concatenation)</strong><ul id="199f558b-ed61-807a-bbe0-df2a3f4e4c22" class="bulleted-list"><li style="list-style-type:circle">문자열/리스트: <code>+</code>: 산술 연산자X → 문자열 연결해줌</li></ul></li></ul><ul id="199f558b-ed61-804b-92b3-dc2a9f13098b" class="bulleted-list"><li style="list-style-type:disc"><code>in</code>: 데이터 리스트에 입력한 데이터가 있는지 확인<ul id="199f558b-ed61-8075-bb69-ea7170901884" class="bulleted-list"><li style="list-style-type:circle">예시: 숫자 1이 리스트 a에 포함돼 있는지</li></ul></li></ul><ul id="199f558b-ed61-80ec-a1d8-e00844989bc2" class="bulleted-list"><li style="list-style-type:disc"><code>is</code>: 동일한 객체인지 확인<ul id="199f558b-ed61-8089-86a8-e6976cc9f9fd" class="bulleted-list"><li style="list-style-type:circle">데이터 내용 같아도, 메모리 상 저장 위치 다를 수 있음 → <code>is</code>는 근본적으로 동일한지 확인해줌</li></ul><ul id="199f558b-ed61-800c-9956-fceaa78e05ec" class="bulleted-list"><li style="list-style-type:circle">파이썬: 256까지는 저장 위치 동일하도록 미리 지정해둠 → 더 큰 수는 <code>is</code> 해도 False 나옴</li></ul></li></ul><h2 id="199f558b-ed61-80f5-a440-c5b7f64b4148" class="">2.6 연산자 우선순위</h2><ol type="1" id="199f558b-ed61-8067-875a-fd06f824e46b" class="numbered-list" start="1"><li>( )로 그룹화된 경우</li></ol><ol type="1" id="199f558b-ed61-8056-bf7f-cf455443c479" class="numbered-list" start="2"><li><code>**</code>(제곱)</li></ol><ol type="1" id="199f558b-ed61-800e-aa7f-d4347692695e" class="numbered-list" start="3"><li>산술 연산자(<code>*</code>, <code>/</code>)</li></ol><ol type="1" id="199f558b-ed61-80f0-a8cf-d048005c8eb9" class="numbered-list" start="4"><li>산술 연산자(<code>+</code>, <code>-</code>)</li></ol><ol type="1" id="199f558b-ed61-805c-9659-cb38c1e51f44" class="numbered-list" start="5"><li>비교 연산자, <code>in</code>, <code>is</code> </li></ol><ol type="1" id="199f558b-ed61-806d-bf59-e774e78fc179" class="numbered-list" start="6"><li><code>not</code> </li></ol><ol type="1" id="199f558b-ed61-80a5-8667-dbdf6ebbeb41" class="numbered-list" start="7"><li><code>and</code> </li></ol><ol type="1" id="199f558b-ed61-80d6-8b13-ec71a7af2f4d" class="numbered-list" start="8"><li><code>or</code></li></ol><h1 id="199f558b-ed61-80e7-911c-c9aa7fb95ebe" class="">3. 형변환</h1><h2 id="199f558b-ed61-8071-8c18-dda30dcb114a" class="">3.1 암시적 형변환</h2><ul id="199f558b-ed61-8028-a3cd-f36cbb98ad40" class="bulleted-list"><li style="list-style-type:disc">파이썬에서 자동으로 해주는 형변환</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8097-b996-d5dce24a966f" class="code"><code class="language-JavaScript">a = True
+b = False
+c= 1
+
+print(a + b) # T=1(전기 흐름), F=0(전기 안 흐름) &gt;&gt; 이렇게 자동으로 인식해 계산한 것
+print(a + c)
+
+if 1:
+    print(&#x27;hello&#x27;) # 1=True로 자동으로 파이썬이 인식해서 값 도출한 것</code></pre><h2 id="199f558b-ed61-80c1-86d9-cb6bbefa0816" class="">3.2 명시적 형변환</h2><ul id="199f558b-ed61-8006-9f82-f9a4a2ca67a9" class="bulleted-list"><li style="list-style-type:disc"><code>int( )</code>: 괄호 안 숫자를 정수로 변환</li></ul><ul id="199f558b-ed61-803a-bda2-e9d26676e837" class="bulleted-list"><li style="list-style-type:disc"><code>float( )</code>: 실수로 변환</li></ul><ul id="199f558b-ed61-8067-83c5-e3860d27b37b" class="bulleted-list"><li style="list-style-type:disc"><code>str( )</code>: 숫자로 변환</li></ul><ul id="199f558b-ed61-800f-94ff-e4bd5d9b06d3" class="bulleted-list"><li style="list-style-type:disc"><code>bool( )</code>: 분리형으로 변환</li></ul><p id="199f558b-ed61-80a9-8acb-f8a1c0780511" class="">
+</p><p id="199f558b-ed61-803a-85f9-ccafde6738f7" class="">
+</p><hr id="199f558b-ed61-80db-bc1f-ed82b96ce4fa"/><h1 id="199f558b-ed61-8087-af3c-f7e959612962" class="">4. 시퀀스 자료형</h1><ul id="199f558b-ed61-8092-a9e9-f2b6c22eba0a" class="bulleted-list"><li style="list-style-type:disc"><strong>시퀀스</strong>: 데이터의 <strong>순서대로</strong> 나열된 자료구조<ul id="199f558b-ed61-80b0-b469-f903eff99c3d" class="bulleted-list"><li style="list-style-type:circle">순서대로 나열됐다 != 정렬됐다</li></ul><ul id="199f558b-ed61-809e-9cf8-ec3d94ea7cfa" class="bulleted-list"><li style="list-style-type:circle">자료 구조: 자료 묶여 있는 것 의미</li></ul></li></ul><ul id="199f558b-ed61-808e-8ef7-d7798c8f9e07" class="bulleted-list"><li style="list-style-type:disc"><strong>선언</strong>: 소괄호 | <strong>접근</strong>: 대괄호</li></ul><h2 id="199f558b-ed61-80af-b900-ec7e9f42ff13" class="">4.1. [List]</h2><ul id="199f558b-ed61-80e3-b769-e30c22099cb1" class="bulleted-list"><li style="list-style-type:disc">시퀸스 중 유일하게 수정 가능(mutable)<ul id="199f558b-ed61-807c-8527-e57884d01aac" class="bulleted-list"><li style="list-style-type:circle">index 통해 세부적으로 조정 가능</li></ul></li></ul><ul id="199f558b-ed61-80bd-a18b-f56ffe2b1354" class="bulleted-list"><li style="list-style-type:disc">선언 방법: <code>var_name = [value1, value2, value3…]</code> <ul id="199f558b-ed61-8036-8037-f0e576b3082f" class="bulleted-list"><li style="list-style-type:circle">리스트 내, 여러 데이터 타입 들어갈 수 있음 &gt;&gt; 리스트도 가능</li></ul></li></ul><ul id="199f558b-ed61-8056-af67-efb0bfbb1b6a" class="bulleted-list"><li style="list-style-type:disc">접근 방법: <code>var_name[index]</code><ul id="199f558b-ed61-8034-9170-fe9d97a3cf2f" class="bulleted-list"><li style="list-style-type:circle"><code>index</code>: 순서 확인 위해 숫자/정수 데이터 사용<ul id="199f558b-ed61-8010-a979-c32e77e401e9" class="bulleted-list"><li style="list-style-type:square">0부터 시작</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8041-a53b-e9beeeff074d" class="code"><code class="language-JavaScript">location = [&#x27;seoul&#x27;, &#x27;busan&#x27;, &#x27;incheon&#x27;]
+print(location) # list 내 모든 데이터 출력
+print(location[0]) #파이썬은 0부터 시작하므로, 첫 번째 데이터만 출력
+
+&gt; [&#x27;seoul&#x27;, &#x27;busan&#x27;, &#x27;incheon&#x27;] # 리스트는 대괄호로 출력됨
+
+
+location[1] = &#x27;deogu&#x27; # 다른 데이터로 교체
+print(location)</code></pre></li></ul><h2 id="199f558b-ed61-80b8-88ff-d4336d7f62b7" class="">4.2. (Tuple)</h2><ul id="199f558b-ed61-8014-a113-c1581758abc7" class="bulleted-list"><li style="list-style-type:disc"><strong>선언</strong>: <code>var_name = (value1, value2…)</code></li></ul><ul id="199f558b-ed61-8035-a7b1-ca8199058108" class="bulleted-list"><li style="list-style-type:disc"><strong>접근</strong>: <code>var_name = [index]</code></li></ul><ul id="199f558b-ed61-8015-83de-f358e6b572f4" class="bulleted-list"><li style="list-style-type:disc"><strong>특징</strong><ul id="199f558b-ed61-8073-805d-d830518d4cdc" class="bulleted-list"><li style="list-style-type:circle">수정 불가능함(immutable)<ul id="199f558b-ed61-80ad-bb6a-c3426608c52b" class="bulleted-list"><li style="list-style-type:square">변수를 새 값으로 덮어 씌우기는 가능하나 &gt;&gt; index 통해 일부 범위만 수정X</li></ul></li></ul><ul id="199f558b-ed61-807a-9068-c36156617488" class="bulleted-list"><li style="list-style-type:circle">변수값 편하게 바꿀 때 사용</li></ul></li></ul><ul id="199f558b-ed61-805d-a54c-ca11a666088b" class="bulleted-list"><li style="list-style-type:disc">예시</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-805f-9509-e8c950916fee" class="code"><code class="language-JavaScript">location = (&#x27;seoul&#x27;, &#x27;busan&#x27;, &#x27;incheon&#x27;)
+print(location)
+&gt; (&#x27;seoul&#x27;, &#x27;busan&#x27;, &#x27;incheon&#x27;) # 튜플은 소괄호로 출력됨</code></pre><h2 id="199f558b-ed61-80ac-8753-d74d2edcab84" class="">4.3. Range( )</h2><ul id="199f558b-ed61-8068-9859-e85ab7b745e3" class="bulleted-list"><li style="list-style-type:disc">range(n): 0 ~ n-1 범위 의미</li></ul><ul id="199f558b-ed61-8093-9732-c03f766f0325" class="bulleted-list"><li style="list-style-type:disc">range(n, m): n ~ m-1 범위 의미</li></ul><ul id="199f558b-ed61-80cd-b7ce-cad23a22f4ea" class="bulleted-list"><li style="list-style-type:disc">range(n, m, s(간격)): n ~ m-1 까지, s만큼 증가하는 범위</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-80c5-8ef4-c8b2a6262af3" class="code"><code class="language-JavaScript">lotto = range(45)
+print(lotto)
+print(list(lotto)) # lotto 속에 어떤 데이터 있는지 모두 보여줌 &gt;&gt; 0부터 44까지 있음
+
+# 1부터 45까지의 숫자를 저장하고 싶다면?
+lotto = range(1, 46)
+print(lotto)
+print(list(lotto))</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8084-9cf7-d65b60cb9731" class="code"><code class="language-JavaScript">even = range(2, 20, 2) # 2~19 숫자 중 2씩 증가한 범위만 포함 &gt;&gt; 그래서 2~18까지 짝수만 출력됨
+print(list(even))
+
+numbers = range(0, -20, -2) # -19~0 숫자 중 -2씩 감소한 범위만 포함 &gt;&gt; -18~0까지 짝수만 출력
+print(list(numbers))</code></pre><h2 id="199f558b-ed61-80fe-8346-fa92d0e369c6" class="">4.4 ‘String’: 기본 데이터 구조 참고</h2><p id="199f558b-ed61-8061-b041-c21d382bbf5d" class="">
+</p><h2 id="199f558b-ed61-80c8-83c6-e61e644d12d7" class="">4.5 시퀀스에서 활용 가능한 연산/함수</h2><ul id="199f558b-ed61-80a9-b0e7-d2a918de2788" class="bulleted-list"><li style="list-style-type:disc"><strong>indexing</strong>: 단일 데이터에 접근하는 방법<ul id="199f558b-ed61-8098-b684-c0c16b23bd99" class="bulleted-list"><li style="list-style-type:circle"><code>var_name[index]</code> s</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8055-9596-d59f69f3a3e9" class="code"><code class="language-JavaScript">my_list = [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;, &#x27;e&#x27;]
+print(my_list[0])
+# 0번째 데이터 &#x27;a&#x27; 출력됨</code></pre><ul id="199f558b-ed61-80b2-b24e-e024cd31fd82" class="bulleted-list"><li style="list-style-type:disc"><strong>slicing</strong>: 일정 범위 데이터에 접근하는 방법<ul id="199f558b-ed61-80c4-aa4b-d395792484f9" class="bulleted-list"><li style="list-style-type:circle"><code>var_name[index1:index2]</code> </li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8024-aea0-d2d5d9fca1c9" class="code"><code class="language-JavaScript">my_string = &#x27;가나다라마&#x27;
+print(my_string[0:2])
+#0번째부터 1번째까지의 데이터 출력됨 &gt;&gt; &#x27;가나&#x27; 출력</code></pre><ul id="199f558b-ed61-807e-8dad-e3439620ea83" class="bulleted-list"><li style="list-style-type:disc"><code>[n:]</code>: n ~ 맨 끝까지 출력<ul id="19df558b-ed61-80ce-b171-c6d13ac7334a" class="bulleted-list"><li style="list-style-type:circle"><code>[:n]</code>: 맨 앞 ~ n까지 출력</li></ul></li></ul><ul id="199f558b-ed61-80b1-8099-ebcc8668b04e" class="bulleted-list"><li style="list-style-type:disc"><code>- [index]</code>: 뒤에서 숫자 세기<ul id="199f558b-ed61-80c7-9f98-c6273159f2b3" class="bulleted-list"><li style="list-style-type:circle">맨 뒤 index: -1</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8068-83c6-c079af2b942b" class="code"><code class="language-Python">print(my_list[-1]) # 뒤에서 1번째 데이터 출력
+print(my_list[-3:-1]) # 뒤에서 1~2번째까지 출력</code></pre><ul id="199f558b-ed61-8058-a1f9-fb7dd30ea745" class="bulleted-list"><li style="list-style-type:disc"><code>step</code>: 특정 간격 만큼만 출력할 때</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8067-bcbd-c199d3e89819" class="code"><code class="language-Python">print(my_list[::2]) # 맨 앞부터 2칸씩 증가한 범위만 출력</code></pre><ul id="199f558b-ed61-8036-a1a6-d58d2d5e91ea" class="bulleted-list"><li style="list-style-type:disc"><code>in</code> / <code>not in</code> <ul id="199f558b-ed61-807a-b277-f11af2329d54" class="bulleted-list"><li style="list-style-type:circle"><code>in</code>: 시퀸스 내에 해당 데이터 있는지 T/F</li></ul><ul id="199f558b-ed61-8037-a7ed-c59d9b0f2a0a" class="bulleted-list"><li style="list-style-type:circle"><code>not in</code>: 시퀸스 내에 해당 데이터 없는지 T/F</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8031-ad01-dd08065df2ae" class="code"><code class="language-Python">print(1 in my_list) # my_list에 1 있는지
+print(1 not in my_list) # my_list에 1 없는지</code></pre><ul id="199f558b-ed61-80ae-887e-c6f5223db5df" class="bulleted-list"><li style="list-style-type:disc">comcatennation(연결)<ul id="199f558b-ed61-80bd-800b-eff284680670" class="bulleted-list"><li style="list-style-type:circle">시퀸스형 자료는 전부 연결 가능</li></ul><ul id="199f558b-ed61-802c-ac35-fdfc4663aae3" class="bulleted-list"><li style="list-style-type:circle">동일 자료형만 연결 가능 → list+list (O), list+tuple(X)</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8085-b135-cc85f61df313" class="code"><code class="language-Python">print(my_list + [1, 2, 3, 4, 5]) # 리스트 2개 연결한 것</code></pre><ul id="199f558b-ed61-80dc-b207-f17280454070" class="bulleted-list"><li style="list-style-type:disc">*(곱셈): 연결 반복 의미</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-80b7-b63b-f79ca4a0e488" class="code"><code class="language-Python">print(my_list * 2)
+print(&#x27;가&#x27; * 5)
+print([0] * 10) # 0 들어있는 리스트를 10번 연결</code></pre><p id="199f558b-ed61-807f-9a18-f7b4c8de73d5" class="">
+</p><hr id="199f558b-ed61-80ec-8c06-f366b35562e6"/><h1 id="199f558b-ed61-808e-a21e-fb135202e61e" class="">5. 시퀀스 이외 자료구조</h1><ul id="199f558b-ed61-801b-90c2-c3b6e1fb1797" class="bulleted-list"><li style="list-style-type:disc">시퀀스: 순서O ↔ 비시퀸스: 순서X, 집합임</li></ul><ul id="199f558b-ed61-80a4-ad3e-ee92df021c12" class="bulleted-list"><li style="list-style-type:disc">수정 가능함(meutable)</li></ul><h3 id="199f558b-ed61-80bd-abb5-e4b6fc43f472" class="">5.1 {Set}</h3><ul id="199f558b-ed61-80a9-8bce-d0109e5d7cf2" class="bulleted-list"><li style="list-style-type:disc"><strong>선언</strong>: <code>var_name = {value1, value2 ...}</code> </li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-80ce-874a-f63a42776c21" class="code"><code class="language-JavaScript">my_set_a = {1, 2, 3, 4, 5}
+print(my_set_a)</code></pre><ul id="199f558b-ed61-80c7-ba95-dd1c176ee6ae" class="bulleted-list"><li style="list-style-type:disc">‘집합’과 비슷한 개념</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-806a-a466-ef28112f0a99" class="code"><code class="language-JavaScript">print(my_set_a - my_set_b) #차집합
+print(my_set_a | my_set_b) #합집합
+print(my_set_a &amp; my_set_b) #교집합</code></pre><ul id="199f558b-ed61-80d3-93fa-cc1304f27404" class="bulleted-list"><li style="list-style-type:disc">중복값X → 중복 데이터 있을 시 제거해줌<ul id="199f558b-ed61-8010-8d70-d66e66c2dc4a" class="bulleted-list"><li style="list-style-type:circle">순서 없어 집합 이용해 연산할 때 유의미 → 그래서 단일 데이터 접근하는 접근법X</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-80b6-abd7-c36547bf5b6a" class="code"><code class="language-JavaScript">location = [&#x27;서울&#x27;, &#x27;대구&#x27;, &#x27;대구&#x27;, &#x27;부산&#x27;, &#x27;서울&#x27;, &#x27;대구&#x27;, &#x27;부산&#x27;]
+print(set(location))
+&gt; {&#x27;대구&#x27;, &#x27;부산&#x27;, &#x27;서울&#x27;} # 중복값 제거해줌</code></pre><h2 id="199f558b-ed61-80a5-b7f3-ed59569624a5" class="">5.2 {Dict: ionary}(사전)</h2><ul id="199f558b-ed61-8006-9e1d-cf16470e87fc" class="bulleted-list"><li style="list-style-type:disc"><strong>선언</strong>: <code>var_name = {key1: value1, key2: value2, ...}</code><ul id="199f558b-ed61-804e-b6c8-d3ef7a52280a" class="bulleted-list"><li style="list-style-type:circle"><code>key: value</code>가 한 세트임<ul id="199f558b-ed61-8017-bbef-ca109e1f6b07" class="bulleted-list"><li style="list-style-type:square"><code>key</code>: 찾고 싶은 단어</li></ul><ul id="199f558b-ed61-801a-bddf-f03fe5ff91c8" class="bulleted-list"><li style="list-style-type:square"><code>value</code>: 찾은 단어의 의미 &gt;&gt; 키의 값</li></ul></li></ul></li></ul><ul id="199f558b-ed61-80e8-ba99-ebf091fa8190" class="bulleted-list"><li style="list-style-type:disc">접근: <code>var_name[key]</code> </li></ul><ul id="199f558b-ed61-8005-83eb-d34f4fb30de0" class="bulleted-list"><li style="list-style-type:disc">key(item_name) 기준으로만 접근 가능<ul id="199f558b-ed61-804e-9d36-c0592fd79ae3" class="bulleted-list"><li style="list-style-type:circle">사전도 의미 기준으로 단어 찾으려면 찾기 힘들듯</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-808d-92ba-fbbe643cfa99" class="code"><code class="language-JavaScript">my_dict = {&#x27;서울&#x27;: &#x27;02&#x27;, &#x27;경기&#x27;: &#x27;031&#x27;}
+print(my_dict[&#x27;서울&#x27;])
+&gt; 02 출력됨</code></pre><p id="199f558b-ed61-80c9-8638-cc4734adf6e9" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-801c-92b6-ec93df4da029" class="code"><code class="language-JavaScript">my_info = {
+    &#x27;name&#x27;: &#x27;sori&#x27;,
+    &#x27;location&#x27;: &#x27;seoul&#x27;,
+    &#x27;age&#x27;: 25,
+    &#x27;skill&#x27;: [&#x27;python&#x27;, &#x27;git&#x27;]}
+# 리스트는 동일한 자료형을 입력하는 것을 가정, dirctionary는 서로 다른 자료형 입력 가능, 사전 안에 사전 넣을 수도 있음
+print(my_info[&#x27;name&#x27;]) # dict의 name이라는 키의 value만 출력</code></pre><ul id="199f558b-ed61-80e8-bb44-dd31fd2a512d" class="bulleted-list"><li style="list-style-type:disc">dict 속 list의 특정 범위만 출력할 때<ul id="199f558b-ed61-8003-89bb-cba5a6decdb8" class="bulleted-list"><li style="list-style-type:circle"><code>print(dict_name[list_name][index])</code>: list 내에 다시 괄호X, 옆에 별도로 대괄호 빼야 함</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-80a1-9073-f5d04125cc5b" class="code"><code class="language-JavaScript">print(my_info[&#x27;skill&#x27;][1])</code></pre><p id="199f558b-ed61-800c-8368-f3cf334dec9c" class="">
+</p><hr id="199f558b-ed61-80ff-b256-d8ea6e03e2d5"/><h1 id="199f558b-ed61-8061-8856-daf878c72e11" class="">6. 제어문</h1><h2 id="199f558b-ed61-8053-a966-e360e17e73d5" class="">6.1 if문</h2><ul id="199f558b-ed61-8074-aa51-eb6119840154" class="bulleted-list"><li style="list-style-type:disc">i반드시 T/F 판단 가능한 ‘조건식’과 함께 사용</li></ul><ul id="199f558b-ed61-80fd-858c-c5f14c440754" class="bulleted-list"><li style="list-style-type:disc">명령어 구조</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8044-a4ff-dabb25a4940f" class="code"><code class="language-Python">if &lt;조건식&gt;:
+		조건식 True일 때 실행하는 코드
+else:
+		조건식 False일 때 실행하는 코드</code></pre><ul id="199f558b-ed61-8063-a35d-ddaa6f6265cc" class="bulleted-list"><li style="list-style-type:disc">예시1</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-802d-ba75-d3d27d5237e0" class="code"><code class="language-Python">my_string = input() # input(): 실행한 뒤 나온 값을 my_string 변수에 저장하는 것 &gt;&gt; run하면 하단에 창 뜸 / input은 사용자가 직접 박스에 입력할 수 있게 하는 역할
+print(my_string) # 출력하면, 내가 입력한 것이 출력되도록 됨
+
+if my_string == &#x27;12/25&#x27;:
+    print(&#x27;merry christmas!&#x27;)
+else:
+    print(&#x27;NO&#x27;)
+# my_string 값이 &#x27;12/25&#x27;이 맞는지 묻는 것
+# 창에 12/25일 입력하면, 조건문 참이기에 &#x27;메리 크리스마스&#x27; 문구 출력됨</code></pre><ul id="199f558b-ed61-80cf-ac2e-cdc2d94a13cd" class="bulleted-list"><li style="list-style-type:disc">예시2</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-80c9-ba73-cb39b2536584" class="code"><code class="language-JavaScript">num = int(input()) #input함수 실행된 다음 &gt;&gt; 받은 값을 int(숫자)로 변환 &gt;&gt; 그 결과를 num 변수에 저장한단 것
+
+if num % 2 == 1:
+    print(&#x27;홀수&#x27;)
+else:
+    print(&#x27;짝수&#x27;)</code></pre><ul id="199f558b-ed61-80d7-be40-c4d0671c30cd" class="bulleted-list"><li style="list-style-type:disc">간략한 코드<ul id="199f558b-ed61-80cb-a0c8-e2e18212479d" class="bulleted-list"><li style="list-style-type:circle"> <code>num % 2</code> = 0 or 1 나옴<ul id="199f558b-ed61-80c8-806c-fdd2d237fdd9" class="bulleted-list"><li style="list-style-type:square">파이썬: <code>0 == F</code>, <code>1 == T</code> 자동 인식함</li></ul></li></ul><ul id="199f558b-ed61-8058-964b-e3de745a5292" class="bulleted-list"><li style="list-style-type:circle">이를 활용해 코드 압축 가능</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8041-95db-fff0c0d0d83d" class="code"><code class="language-JavaScript">num = int(input())
+
+if num % 2:
+    print(&#x27;홀수&#x27;)
+else:
+    print(&#x27;짝수&#x27;)</code></pre><h3 id="199f558b-ed61-8001-993d-e8c8b61daa56" class="">6.1.1 elif</h3><ul id="199f558b-ed61-8042-8da6-f3a3bfeac26c" class="bulleted-list"><li style="list-style-type:disc">명령문 구조</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8055-b02f-cb117fb74b19" class="code"><code class="language-Python">if &lt;조건식&gt;:
+		if문이 참인 경우 # 1번째 조건 T/F
+elif &lt;조건식&gt;:
+		elif문이 참인 경우 # 2번째 조건 T/F 묻기
+else:
+		모든 조건식이 거짓인 경우</code></pre><ul id="199f558b-ed61-807f-969e-fc1817496654" class="bulleted-list"><li style="list-style-type:disc">예시</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8012-b753-dda1f9500f08" class="code"><code class="language-JavaScript">score = int(input())
+
+if score &gt;= 90:
+    print(&#x27;A&#x27;)
+    if score &gt;= 95:
+        print(&#x27;참 잘했어요&#x27;) # 90점 이상 중, 95점 이상의 경우 출력하도록 하는 것 &gt;&gt; if문 내 if문 들여쓰기 통해 넣을 수 있음
+elif score &gt;= 80:
+    print(&#x27;B&#x27;)
+elif score &gt;= 70:
+    print(&#x27;C&#x27;)
+else:
+    print(&#x27;F&#x27;) # 70점 미만의 경우 모두 F 출력</code></pre><h3 id="199f558b-ed61-8059-bd27-d64c3732366f" class="">6.1.2 조건표현식</h3><ul id="199f558b-ed61-8029-970e-ed270b444582" class="bulleted-list"><li style="list-style-type:disc">T/F에 따라 값 달라질 때 사용</li></ul><ul id="199f558b-ed61-80d4-bcb3-eef86077f72c" class="bulleted-list"><li style="list-style-type:disc"><strong>구조</strong>: <code>true_value if &lt;조건식&gt; else false_value</code> </li></ul><ul id="199f558b-ed61-80f9-a185-c582e2493637" class="bulleted-list"><li style="list-style-type:disc">예시: 음수면 0, 양수면 num 그대로 출력</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-807b-b9f3-c6dda705ae00" class="code"><code class="language-JavaScript">#일반적인 조건문
+num = int(input())
+
+if num &gt;= 0:
+    result = num
+else:
+    result = 0
+print(result)
+
+#조건표현식
+num = int(input())
+result = num if num &gt;= 0 else 0 </code></pre><p id="199f558b-ed61-804c-9efc-f0003d74905f" class="">
+</p><hr id="199f558b-ed61-8044-bf0c-fa777cecb748"/><h2 id="199f558b-ed61-8004-9ade-ede0084363ff" class="">6.2 반복문</h2><h3 id="199f558b-ed61-8049-92c4-ed2f95f6a6c8" class="">6.2.1 while 문</h3><ul id="199f558b-ed61-8015-89f1-d6ae39873d8c" class="bulleted-list"><li style="list-style-type:disc"><strong>구조</strong>: 참이면 코드 실행, 거짓이면 실행 중단</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-804e-b033-faa1a1dc41af" class="code"><code class="language-JavaScript">while &lt;조건식&gt;:
+		실행할 코드</code></pre><ul id="199f558b-ed61-8002-986d-e4abc4249196" class="bulleted-list"><li style="list-style-type:disc">무한 루프 빠지지 않게 &gt;&gt; 종료 시점 정해줘야 함</li></ul><ul id="199f558b-ed61-80ce-99e8-dc169a364eab" class="bulleted-list"><li style="list-style-type:disc">예시<ul id="199f558b-ed61-8007-9bab-e1ab1ac55993" class="bulleted-list"><li style="list-style-type:circle">조건문 <code>a &lt; 5</code> 참이면: a 출력 → a = a + 1 실행 → a값 증가해질 것<ul id="199f558b-ed61-80a8-8fc9-ca667fcbd025" class="bulleted-list"><li style="list-style-type:square"><code>a = a + 1</code> == <code>a += 1</code></li></ul></li></ul><ul id="199f558b-ed61-8084-8a05-eff877f31f6e" class="bulleted-list"><li style="list-style-type:circle">조건문 <code>a &lt; 5</code> 거짓이면: while문 종료</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-80e5-9b73-d52e979eb703" class="code"><code class="language-JavaScript">while a &lt; 5: 
+    print(a)
+    a += 1</code></pre><h3 id="199f558b-ed61-8056-a08f-ccc6313a0c91" class="">6.2.2 for 문</h3><ul id="199f558b-ed61-80e7-a86c-e42c735c83d4" class="bulleted-list"><li style="list-style-type:disc">정해진 범위 내의 반복할 때 사용<ul id="199f558b-ed61-805b-967e-f5f657a9cf28" class="bulleted-list"><li style="list-style-type:circle">정해진 범위 = 시퀀스의 범위 의미 → 시퀀스 순서대로 반복하는 것</li></ul></li></ul><ul id="199f558b-ed61-806d-acef-fda25a293d77" class="bulleted-list"><li style="list-style-type:disc">구조<ul id="199f558b-ed61-80b8-8c2d-e852a3aeb30d" class="bulleted-list"><li style="list-style-type:circle"><code>variable_item</code>: 시퀸스 범위 내 개별 아이템 담기 위한 공간</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-80fd-9265-eecfecc62c7a" class="code"><code class="language-JavaScript">for variable_item in sequence_name:
+		실행할 코드</code></pre><ul id="199f558b-ed61-8032-8b15-fee87bc2d497" class="bulleted-list"><li style="list-style-type:disc">예시<ul id="199f558b-ed61-80bf-a618-d0bf3ef6664c" class="bulleted-list"><li style="list-style-type:circle">number 하나씩 불러서 코드 실행 → 출력 결과도 하나씩 나옴</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-804a-9a65-f8d2b2f09254" class="code"><code class="language-JavaScript">numbers = [1, 2, 3]
+
+for number in numbers: # number: 각 아이템 하나 의미
+    print(number)
+&gt; 1
+	2
+	3</code></pre><ul id="199f558b-ed61-8083-89f1-ee632e741412" class="bulleted-list"><li style="list-style-type:disc">예시: string → 알파벳 분리해 출력</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8072-92c9-f849ee644d5d" class="code"><code class="language-JavaScript">word = &#x27;sori&#x27;
+
+for char in word:
+    print(char)
+&gt; s
+	o
+	r
+	i</code></pre><ul id="199f558b-ed61-80cb-ab17-e150471a9166" class="bulleted-list"><li style="list-style-type:disc">예시: range( )<ul id="199f558b-ed61-80b5-8e12-e812708fce3b" class="bulleted-list"><li style="list-style-type:circle">0~2까지 i에 할당해 출력</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-80c2-a797-eb6c3f295c8c" class="code"><code class="language-JavaScript">for i in range(3):
+    print(i)
+&gt; 0,
+	1,
+	2</code></pre><ul id="199f558b-ed61-8063-9b12-db89dd5b9796" class="bulleted-list"><li style="list-style-type:disc">예시: if + for문<ul id="199f558b-ed61-809a-b5de-d7c9f56c9afb" class="bulleted-list"><li style="list-style-type:circle">10~20 중, 5의 배수만 출력</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8034-aeef-dde8ae64d696" class="code"><code class="language-JavaScript">number = range(10, 21)
+
+for num in number:
+    if num % 5 == 0:
+        print(num)
+&gt; 10
+	15
+	20</code></pre><ul id="199f558b-ed61-8087-a186-dcc6371ad147" class="bulleted-list"><li style="list-style-type:disc"><code>enumerate( )</code>: 각 데이터는 몇 번째 데이터인지 정보 같이 출력해줌</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8010-be49-d30ea13e5cf6" class="code"><code class="language-JavaScript"># enumerate( ) 활용
+locations = [&#x27;서울&#x27;, &#x27;대전&#x27;, &#x27;부산&#x27;]
+for location in enumerate(locations):
+    print(location)
+&gt; (0, &#x27;서울&#x27;) # 출력값 소괄호 &gt;&gt; tuple이란 것
+	(1, &#x27;대전&#x27;)
+	(2, &#x27;부산&#x27;)
+
+# tuple 분리하기
+for (index, location) in enumerate(locations):
+    print(index)
+    print(location)
+&gt; 0
+	서울
+-&gt; 이런 식으로 나눠주는 방식도 있음</code></pre><ul id="199f558b-ed61-808f-a520-c1948aa7822b" class="bulleted-list"><li style="list-style-type:disc"><strong>dictionary 반복</strong><ul id="199f558b-ed61-80d1-ab83-d84e646fa746" class="bulleted-list"><li style="list-style-type:circle">key: 변수 → ex. name, location, age</li></ul><ul id="199f558b-ed61-80d6-b790-de52864ef000" class="bulleted-list"><li style="list-style-type:circle">value: 변수에 할당된 값 → ex. sori, seoul, 20</li></ul><ul id="199f558b-ed61-8068-ac1a-f819e3b87c53" class="bulleted-list"><li style="list-style-type:circle">key, value 중 무엇이 필요한지 따라 사용하는 명령문 다름</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8079-825a-d9dcb4921cce" class="code"><code class="language-JavaScript">info = {&#x27;name&#x27;: &#x27;sori&#x27;,
+&#x27;location&#x27;: &#x27;seoul&#x27;,
+&#x27;age&#x27;: 20}</code></pre><ul id="199f558b-ed61-8062-83e7-c202e6e5b2ef" class="bulleted-list"><li style="list-style-type:disc">key 반복: <code>for (item) in dict</code></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8004-ab01-c4786fb108f3" class="code"><code class="language-JavaScript">for k in info:
+    print(k)</code></pre><ul id="199f558b-ed61-8091-a7aa-c81d86ae5de1" class="bulleted-list"><li style="list-style-type:disc">value 반복: <code>for (item) in dict.values( )</code></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8080-b385-d0036a5f1fb1" class="code"><code class="language-JavaScript">for v in info.values(): #밸류를 반복해 출력해줌
+    print(v)</code></pre><ul id="199f558b-ed61-80cd-962b-f75131d06119" class="bulleted-list"><li style="list-style-type:disc">둘 다 반복: <code>for (key_item, value_item) in dict.item( )</code></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-80e3-baa5-ec445624ea91" class="code"><code class="language-JavaScript">for k, v in info.items(): # 키, 밸류 모두 반복해 출력해줌
+    print(k, v)</code></pre><ul id="199f558b-ed61-8095-b2ac-d89a14a02d4b" class="bulleted-list"><li style="list-style-type:disc">예제: </li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-80c0-b5c6-e860193863cb" class="code"><code class="language-JavaScript">bloods = {&#x27;A&#x27;: 15, &#x27;B&#x27;: 8, &#x27;o&#x27;: 3, &#x27;AB&#x27;: 9}
+
+for k, v in bloods.items():
+    print(f&#x27;{k}형은 총 {v}명 입니다.&#x27;)
+    
+&gt; A형은 총 15명 입니다.
+	B형은 총 8명 입니다.
+	o형은 총 3명 입니다.
+	AB형은 총 9명 입니다.</code></pre><h2 id="199f558b-ed61-807d-b190-ccc8062d32ab" class="">6.3 키워드</h2><h3 id="199f558b-ed61-80e8-895f-f88a0ad645dc" class="">6.3.1 break</h3><ul id="199f558b-ed61-8028-8892-d4d04565e5c3" class="bulleted-list"><li style="list-style-type:disc">자신과 가장 가까운 반복문 종료시키는 키워드 → 완전 종료할 때 사용</li></ul><ul id="199f558b-ed61-80c4-8afa-c43a976afb76" class="bulleted-list"><li style="list-style-type:disc">예시: 조건문 참일 때 while문 종료하는 경우</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-80ff-a1d1-efac6cb30437" class="code"><code class="language-JavaScript">while True: # true를 넣어놨으니, 이 코드는 일단 무한히 돌 것
+    rice = input() # 코드 계속 돌아가는데 사용자에게 입력값 받음
+    if rice == &#x27;쌀&#x27;: #근데 쌀 입력하면
+        print(&#x27;잡았다!&#x27;) #잡았다 출력한 뒤
+        break #while문 종료됨</code></pre><h3 id="199f558b-ed61-80fc-9293-f2aa78280f46" class="">6.3.2 continue</h3><ul id="199f558b-ed61-807b-803d-dfea19df2953" class="bulleted-list"><li style="list-style-type:disc">continue 이후 코드 스킵, 다음 반복으로 넘어감 → 특정 값 스킵할 때 사용<ul id="199f558b-ed61-8070-a9ee-d1d5d61477ff" class="bulleted-list"><li style="list-style-type:circle">홀수라면 스킵 → 짝수만 출력</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-802d-bcea-d511c671b8fb" class="code"><code class="language-JavaScript">for i in range(20):
+    if i % 2 == 1:
+        continue
+    print(i)</code></pre><h3 id="199f558b-ed61-8008-bb0e-ff7adc90f23a" class="">6.3.3 else</h3><ul id="199f558b-ed61-80fa-b266-e42b4b60f194" class="bulleted-list"><li style="list-style-type:disc">끝까지 반복된 경우 실행됨 → break 만나지 않는 경우 실행</li></ul><ul id="199f558b-ed61-803d-9de9-d9a3e0bf1b89" class="bulleted-list"><li style="list-style-type:disc">예시<ul id="199f558b-ed61-80bc-8d76-d48caedb7387" class="bulleted-list"><li style="list-style-type:circle">조건문 참: i &gt; 100이면 break<p id="199f558b-ed61-806f-945f-d1d1186df536" class="">조건문 거짓: ‘모두완료!’ 출력</p></li></ul><ul id="199f558b-ed61-8084-af67-d5f870d00c4c" class="bulleted-list"><li style="list-style-type:circle">근데 범위: 0~9 → 따라서 break 만나지X아 끝까지 실행돼 else 코드실행</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="199f558b-ed61-8097-adc5-f5a3d7f6708f" class="code"><code class="language-JavaScript">for i in range(10):
+    if i &gt; 100:
+        break
+    print(i)
+else:
+    print(&#x27;모두완료!&#x27;)</code></pre><p id="19af558b-ed61-8071-96db-c8b5585e34aa" class="">
+</p><hr id="199f558b-ed61-8091-9663-e1ee010cb8e9"/><h1 id="19af558b-ed61-8004-9457-e3071cdcc284" class="">7. 함수</h1><ul id="19af558b-ed61-804e-8855-cb2fe3cd6e3f" class="bulleted-list"><li style="list-style-type:disc">정보 입력해 일 시키면 그 결과로 산출물 나옴 → 그러한 일련의 단위<ul id="19af558b-ed61-8082-8529-e8e290313cec" class="bulleted-list"><li style="list-style-type:circle">코드의 재사용성을 높이기 위해 만드는 것 → 일일이 코드 만들면 비효율적</li></ul></li></ul><ul id="19af558b-ed61-805f-8be9-f79b4ede3c32" class="bulleted-list"><li style="list-style-type:disc">예제: 사각형의 가로/세로 길이 이용해 면적/둗레 구하는 코드</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-807f-b700-ed92d35aa977" class="code"><code class="language-JavaScript">height = 50
+width = 20
+
+area = height * width # 면적 공식
+perimeter = (height + width) * 2 # 둘레 공식
+print(f&#x27;사각형의 면적은 {area}이고, 둘레는 {perimeter}입니다.&#x27;)</code></pre><h2 id="19af558b-ed61-80d1-b0dd-e43a05bcf98b" class="">7.1 함수의 선언과 호출</h2><ul id="19af558b-ed61-8033-bd63-fb74d81bc6e4" class="bulleted-list"><li style="list-style-type:disc"><strong>선언</strong><ul id="19af558b-ed61-80fd-946b-d070598fc456" class="bulleted-list"><li style="list-style-type:circle"><code>def</code>: 다음 함수를 정의한다는 명령어 → 함수 정의한 거라 작동X, 호출해야 작동O<ul id="19af558b-ed61-8099-ad4d-e967301f8131" class="bulleted-list"><li style="list-style-type:square">parameter: 함수 실행하기 위해 데이터가 들어가는 공간 → like 매개변수</li></ul></li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-80ee-b31a-e0d7c79a6999" class="code"><code class="language-Python">def func_name(parameter1, parameter2, ...):
+		code1
+		code2
+		return value</code></pre><ul id="19af558b-ed61-806c-84d8-cc764c90debe" class="bulleted-list"><li style="list-style-type:disc"><strong>호출</strong><ul id="19af558b-ed61-8009-b720-d453cf503730" class="bulleted-list"><li style="list-style-type:circle">소괄호 열림 == 함수 호출됐단 의미</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-80e8-9cd8-eba4a4b95c84" class="code"><code class="language-Python">func_name(parameter1, parameter2, ...)</code></pre><ul id="19af558b-ed61-8058-8b6d-ec1b4689a520" class="bulleted-list"><li style="list-style-type:disc">예제: 사각형 둘레/면적 구하는 함수 만들기<ul id="19af558b-ed61-8082-898d-d7f0e4334ed9" class="bulleted-list"><li style="list-style-type:circle">한번 함수 선언하면, 간단히 계속해 해당 함수 호출 가능</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-804c-b987-cb80fe6fd246" class="code"><code class="language-Python"># 선언
+def rectanle(height, width):
+    area = height * width
+    perimeter = (height + width) * 2
+    print(f&#x27;사각형의 면적은 {area}이고, 둘레는 {perimeter}입니다.&#x27;)
+
+# 호출
+rectanle(50, 30)</code></pre><ul id="19af558b-ed61-8034-9868-e13d9b1e3be9" class="bulleted-list"><li style="list-style-type:disc">예제: <code>max( )</code>와 동일한 기능하는 함수 만들기<ul id="19af558b-ed61-809f-baf5-fedae7613e2e" class="bulleted-list"><li style="list-style-type:circle"><code>max( )</code>: parameter 중 큰 것을 뽑아주는 기능</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-80e0-8e4a-cff11aab31c0" class="code"><code class="language-Python">def my_max(num1, num2): # 데이터 2개 받을 거라고 정의
+    if num1 &gt; num2:
+        print(num1)
+    else:
+        print(num2)
+my_max(100, 2)</code></pre><h2 id="19af558b-ed61-805f-bf84-d2d10b93a4f5" class="">7.1.1 함수의 return</h2><ul id="19af558b-ed61-80a1-a809-f53c08f9e92c" class="bulleted-list"><li style="list-style-type:disc">함수 결과값 반환해줌: 함수가 <code>reutrn</code> 만나면 해당 값 반환/종료함 → 결과를 지정하는 역할</li></ul><ul id="19af558b-ed61-803c-b166-fd96082478d7" class="bulleted-list"><li style="list-style-type:disc">예제:<ul id="19af558b-ed61-80e8-acce-c3af894feff0" class="bulleted-list"><li style="list-style-type:circle">return 하면 임무 완수했다고 여김 → 함수는 연산 종료, 근데 반복문 돌아가므로 3 반복한 것</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-8064-a197-dee592f20da0" class="code"><code class="language-Python">def my_for(x):
+    for i in range(x):
+        print(i)
+        if i == 3:
+            return i
+my_for(5)
+&gt; 1
+	2
+	3
+	3
+	3</code></pre><ul id="19af558b-ed61-8060-800c-f3233c5a8d2d" class="bulleted-list"><li style="list-style-type:disc"><code>break</code>도 할 일 끝나면 반복문 종료하듯 → <code>return</code>도 임무 완수하면 종료</li></ul><ul id="19af558b-ed61-809a-a9fc-e4f2a45345f8" class="bulleted-list"><li style="list-style-type:disc">만약 <code>return</code> 없을 시, 자동으로 None 반환<ul id="19af558b-ed61-80ef-b03f-d82968ce6030" class="bulleted-list"><li style="list-style-type:circle">print ↔ return 차이점:<ul id="19af558b-ed61-8081-8cbb-edf167e9c409" class="bulleted-list"><li style="list-style-type:square">print: 함수 연산 결과를 산출한 게X, 입력값을 출력한 것<p id="19af558b-ed61-8050-ac5c-fbd6c48e3aef" class="">→ 출력값 재사용X, 재사용 시 None 반환</p></li></ul><ul id="19df558b-ed61-8009-a694-fe47fa6982d7" class="bulleted-list"><li style="list-style-type:square">0 ↔ null: 0: 0이라는 데이터 있는 것 | null: 데이터 자체가 없단 것</li></ul><ul id="19af558b-ed61-80cc-8ca8-ee352dae44c9" class="bulleted-list"><li style="list-style-type:square">return: 함수 연산 결과를 산출 → 연산 결과 저장해 이후 또다른 연산할 때 재사용O</li></ul></li></ul><ul id="19af558b-ed61-802a-b31d-c8db843c7d6e" class="bulleted-list"><li style="list-style-type:circle">예제: 큰 수를 구한 다음, 큰 수에 2 곱하기</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-808d-bd41-e48ebca9346e" class="code"><code class="language-Python">def my_max2(num1, num2):
+    if num1 &gt; num2:
+        return num1 # num1이 더 크면 결과값 num1을 반환한단 것
+        return num2
+my_max2(1, 3)
+
+result = my_max2(1, 3) * 2
+print(result)</code></pre></li></ul><ul id="19af558b-ed61-8055-bf33-e41a63ae26d7" class="bulleted-list"><li style="list-style-type:disc"><code>return</code>은 하나의 객체만 반환 → 함수기 때문에 각 변수엔 결과 1개만 저장O <ul id="19af558b-ed61-800b-9c00-c50007556176" class="bulleted-list"><li style="list-style-type:circle">return( ): 여러 개 객체 입력하면, 튜플로 전환됨</li></ul><ul id="19af558b-ed61-806c-8674-fa2b46cfc94e" class="bulleted-list"><li style="list-style-type:circle">예제:  (출력값, 입력값)으로 묶이는 tuple 방식으로 return 값 출력하기<ul id="19af558b-ed61-8090-971a-ee82056169fb" class="bulleted-list"><li style="list-style-type:square">소괄호로 묶으면 튜플로 전환돼 여러 객체 저장 가능</li></ul></li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-8018-8e9f-e254f3b79846" class="code"><code class="language-Python">def my_def(x):
+    return (x * 2, x)
+my_def(10)</code></pre><p id="19af558b-ed61-8091-8ba7-c8cc5629b707" class="">
+</p><ul id="19af558b-ed61-80d7-a64e-ffa43d184ce4" class="bulleted-list"><li style="list-style-type:disc">예제: 두 list 총합 구한 뒤, 큰 list 출력하기<ul id="19af558b-ed61-8075-9992-c4eb2784d9ed" class="bulleted-list"><li style="list-style-type:circle">for문 활용한 경우</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-8005-bafd-d131408812ed" class="code"><code class="language-Python">def my_list_max(list1, list2):
+    # 각 리스트의 총합 구하기
+    sum_of_list1 = 0 # 누적합 구하기 전에, 초기값 0을 설정
+    sum_of_list2 = 0
+
+    # 리스트1의 데이터 하나씩 호출해서 sum_of_list1에 할당하는 식으로 할 것 &gt;&gt; 데이터 누적해 총합 구하는 방식
+    for i in list1:
+        sum_of_list1 = sum_of_list1 + i
+    for i in list2:
+        sum_of_list2 += i # 위의 식과 동일한 내용임 &gt;&gt; 코드 압축한 것
+
+    # 두 총합을 비교하기 / 더 큰 값의 리스트를 출력하기
+    if sum_of_list1 &gt; sum_of_list2:
+        return list1
+    else:
+        return list2</code></pre></li></ul><p id="19af558b-ed61-80d4-859c-f1888203d097" class=""><div class="indented"><ul id="19af558b-ed61-804a-95f3-ff9a384e7b63" class="bulleted-list"><li style="list-style-type:disc">sum( ) 함수를 활용한 경우</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-80aa-85f9-f9e9b538767f" class="code"><code class="language-Python">def my_list_max(list1, list2):
+        result1 = sum(list1)
+        result2 = sum(list2)
+        if result1 &gt; result2:
+            return list1
+        else:
+            return list2</code></pre></div></p><h2 id="19af558b-ed61-800d-b073-e1b1cae4a412" class="">7.2 함수의 인수</h2><h3 id="19af558b-ed61-800b-9d8f-d493611a959e" class="">7.2.1 위치인수</h3><ul id="19df558b-ed61-8036-93b9-c7a3e12f675f" class="bulleted-list"><li style="list-style-type:disc">함수는 위치를 기준으로 인수 판단함<ul id="19af558b-ed61-8064-bfa6-ffcffc3bddf3" class="bulleted-list"><li style="list-style-type:circle">예제: 원기둥 부피 구하기<ul id="19af558b-ed61-80a4-a0b0-f7effe676bee" class="bulleted-list"><li style="list-style-type:square">공식: 3.14 * r(반지름) ** 2 * h(높이)</li></ul><ul id="19af558b-ed61-807f-8ba9-f904d003d79f" class="bulleted-list"><li style="list-style-type:square">첫번째 데이터는 r에 들어감, 두번째 데이터는 h에 들어감</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-800a-831f-fb148cc8b894" class="code"><code class="language-Python">def cylinder(r, h):
+    return 3.14 * r ** 2 * h</code></pre></li></ul><h3 id="19af558b-ed61-8007-92d4-ccc816ef549a" class=""><strong>7.2.2 기본값</strong></h3><ul id="19af558b-ed61-80fb-8beb-d5d60f78399e" class="bulleted-list"><li style="list-style-type:disc">사용자에게 정보 받을지 말지 선택하게 하는 역할함<ul id="19af558b-ed61-8034-a5a1-df556c5c51e2" class="bulleted-list"><li style="list-style-type:circle">여러 파라미터 중 일부만 기본값 설정한다면: 기본값 없는 인자부터 입력토록 해야 함</li></ul></li></ul><ul id="19af558b-ed61-8014-8fa0-e581e23df6a3" class="bulleted-list"><li style="list-style-type:disc">구조</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-800a-9794-f40cd8c4adfa" class="code"><code class="language-Python">def func_name(p1=v1):
+    code1
+    return value</code></pre><ul id="19af558b-ed61-80d5-b707-f4f95f4ce1df" class="bulleted-list"><li style="list-style-type:disc">예제: 함수 호출 시, 인자 입력X도 기본값 &#x27;익명&#x27; 출력하기</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-806e-82d9-c60ee980f96e" class="code"><code class="language-Python">def greeting(age, name=&#x27;익명&#x27;):
+    return f&#x27;{name}님의 나이는 {age}살 입니다.&#x27;
+greeting(25, &#x27;소리&#x27;)</code></pre><h3 id="19af558b-ed61-8015-b1d6-cc9627c5d550" class="">7.2.3 키워드 인수</h3><ul id="19af558b-ed61-8083-8d22-c66d81adf570" class="bulleted-list"><li style="list-style-type:disc">함수를 호출할 때 내가 원하는 위치에 직접 값 전달<ul id="19af558b-ed61-80b8-8024-fe6ba6ec8198" class="bulleted-list"><li style="list-style-type:circle">예시</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-8009-8742-d5a9bd3f209b" class="code"><code class="language-Python">greeting(name=&#x27;소리&#x27;, age=25)</code></pre><h3 id="19af558b-ed61-8080-b576-c18627f580de" class="">7.2.4 가변 인자 리스트: </h3><ul id="19af558b-ed61-80dd-9302-f8b6100f77ae" class="bulleted-list"><li style="list-style-type:disc">변할 수 있는 인자 → 데이터 몇 개 받을지 지정X고 <code>params</code>(묶음)으로 처리해 받는 것<ul id="19af558b-ed61-807c-a208-c65ab61d71a9" class="bulleted-list"><li style="list-style-type:circle">일반적 함수: 지정한 파라미터 갯수만큼 입력받을 수 있음 → 안 그러면 에러<ul id="19af558b-ed61-803f-80ba-d95bfafeeee7" class="bulleted-list"><li style="list-style-type:square">근데 print( ): 인자 몇 개든 가능</li></ul></li></ul></li></ul><ul id="19af558b-ed61-80e3-9141-c4e001676d67" class="bulleted-list"><li style="list-style-type:disc">구조</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-8034-8d18-ccfbda717afd" class="code"><code class="language-Python">def func_name(*params):
+		code
+		return value</code></pre><ul id="19af558b-ed61-80fc-abfd-d2987b5d143d" class="bulleted-list"><li style="list-style-type:disc">예제: 데이터 리스트 가장 큰 수 출력하기</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-8088-ab7e-e4b6549b6317" class="code"><code class="language-Python">def my_max(*nums):
+    max_num = nums[0] # 입력된 데이터 중 첫 번째 데이터를 초기값으로 지정한 것
+
+    for i in nums:
+        if i &gt; max_num:
+            max_num = i
+    return max_num
+
+my_max(1,2,3,4,5,6,7)</code></pre><p id="19df558b-ed61-800f-b3d0-e7d99a41c60b" class="">
+</p><h3 id="19df558b-ed61-8059-aed8-c6895c9085bf" class="">7.2.5 정의되지 않은 키워드 인자 처리</h3><ul id="19df558b-ed61-80e5-bcf1-d648f48f87f6" class="bulleted-list"><li style="list-style-type:disc">구조</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19df558b-ed61-804e-bb3f-d5f6fe94c140" class="code"><code class="language-Python">def func_name(**kwargs):
+		return value</code></pre><ul id="19df558b-ed61-8097-b3a9-e80dd9784e19" class="bulleted-list"><li style="list-style-type:disc">dict() 함수: name, age라는 각 위치 인자 지정되지 않았는데 작동함<ul id="19df558b-ed61-80fc-920c-cd7e58500680" class="bulleted-list"><li style="list-style-type:circle">정의되지 않은 키워드 인자를 처리하도록 자동으로 설정돼 있기 때문</li></ul></li></ul><p id="19df558b-ed61-803f-909c-d75f5955484b" class=""> # 내부적으로 어떤 파라미터 들어오든 이를 하나의 묶음으로 만들어 dictionary로 만들어줌, 리스트로 만들어주는 게 가변 인자 리스트, dict로 만들어주는 게 정의되지 않은 인자 처리 방식인 것</p><p id="19df558b-ed61-808b-ae01-d22515f16b4b" class=""># dict 함수에는 키워드 형태의 파라미터 어떤 것이든 모두 넣을 수 있음<br/><br/></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19df558b-ed61-806a-899d-ebd6c9c27507" class="code"><code class="language-Python">info = dict(name = &#x27;park&#x27;, a1ge = 25)
+
+def my_dict(**kwargs):
+    print(kwargs)
+my_dict(asdf = &#x27;가나다&#x27;, age = 123, test = &#x27;asdf&#x27;)</code></pre><ul id="19df558b-ed61-8086-a001-efbe8b5e1daf" class="bulleted-list"><li style="list-style-type:disc">여러 인자 복합해 함수 선언 가능: 위치인자, 가변인자 리스트, 정의되지 않은 키워드 인자<ul id="19df558b-ed61-8096-bc42-fd79883f9e77" class="bulleted-list"><li style="list-style-type:circle">예시</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19df558b-ed61-805a-8950-c9323f30d998" class="code"><code class="language-Python">def my_func(params1, params2, *numbers, **kwargs)
+my_func(123, 234, 345, 456, a = 1, b = 2, c = 3) # kwargs = {a:1, b:2, c:3}으로 키워드 인자 들어간 식</code></pre><h2 id="19df558b-ed61-8053-bd02-c6ec515b772f" class="">7.3 lambda 표현식</h2><ul id="19df558b-ed61-80b0-be92-fd2c32032bff" class="bulleted-list"><li style="list-style-type:disc">임시적으로 쓰는 일회용 함수 → 따라서 이름 없는 익명 함수<ul id="19df558b-ed61-802a-9a59-ecc1ed58187b" class="bulleted-list"><li style="list-style-type:circle">장점: 함수 이름 설정+ return 생략 가능→ 빠름, 효율적<ul id="19df558b-ed61-8048-a229-e4fd3907c26a" class="bulleted-list"><li style="list-style-type:square">lambda 함수는 이름 없는 함수라 이름 지정 않은 것</li></ul></li></ul></li></ul><ul id="19df558b-ed61-8011-bae5-e329727a9d15" class="bulleted-list"><li style="list-style-type:disc">구조</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19df558b-ed61-807f-98f9-e77b842d79cd" class="code"><code class="language-Python">(lambda parameter: expression_연산식)()</code></pre><ul id="19af558b-ed61-8056-9fd9-e3823dd1e93b" class="bulleted-list"><li style="list-style-type:disc">예시</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19df558b-ed61-80fc-829d-f074d5180516" class="code"><code class="language-Python">(lambda num1, num2: num1 + num2)(1, 2)</code></pre><h2 id="19df558b-ed61-801c-940e-d95ac024429a" class="">7.4 타입힌트</h2><ul id="19df558b-ed61-806b-9886-f81e41f3391e" class="bulleted-list"><li style="list-style-type:disc">타인이 작성한 코드 가져와 활용할 때, 객체에 어떤 데이터 넣는지 표시해주는 것(주석)<ul id="19df558b-ed61-80ef-ab63-ee98130f2b7f" class="bulleted-list"><li style="list-style-type:circle">java, c언어 등: 어떠한 형태의 데이터 들어가는 객체인지 지정해 코드 작성<ul id="19df558b-ed61-80a9-b845-d665298b719c" class="bulleted-list"><li style="list-style-type:square">코드 작성 오래 걸리나, 실행 속도 빠름, 실행 안정성 높음</li></ul></li></ul><ul id="19df558b-ed61-80be-97b2-d1f02df12837" class="bulleted-list"><li style="list-style-type:circle">파이썬: 객체 지정할 때 어떤 형태 데이터 들어가는지 미리 설정X도 됨<ul id="19df558b-ed61-8075-853d-c161844cb242" class="bulleted-list"><li style="list-style-type:square">개발 속도 높으나, 실행 안정성 낮음</li></ul></li></ul><ul id="19df558b-ed61-804b-ac4c-ca7f03785ded" class="bulleted-list"><li style="list-style-type:circle">예시<ul id="19df558b-ed61-80d3-917f-d2082e71df20" class="bulleted-list"><li style="list-style-type:square"><code>(a: int, b: int)</code>: a, b 객체에 숫자를 넣어야 한다는 것 알려줌</li></ul><ul id="19df558b-ed61-80ad-9e45-ce201257710a" class="bulleted-list"><li style="list-style-type:square"><code>→ int</code>: 출력 값의 데이터 형태 알려주는 것</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19df558b-ed61-8053-8d6f-f85b0adf79c8" class="code"><code class="language-Python">def something(a: int, b: int) -&gt; int:
+		return a + b
+my_sum(1, 2)</code></pre></li></ul><h2 id="19df558b-ed61-80cb-995e-db5b91dd0592" class="">7.5 이름 공간(namespace) / 스코프(scope)</h2><h3 id="19df558b-ed61-80d1-bac0-ce4d141a1620" class=""><strong>이름 공간</strong></h3><ul id="19df558b-ed61-80e3-82f4-ea751617e0c4" class="bulleted-list"><li style="list-style-type:disc">python에서 사용하는 이름들은 이름 공간에 저장돼 있음</li></ul><ul id="19df558b-ed61-80fb-a350-edb7cd964502" class="bulleted-list"><li style="list-style-type:disc">어떤 데이터 접근하기 위해 이름 만들어 놓음 → 호출 위해 저장해 놓은 것</li></ul><ul id="19df558b-ed61-8097-ad07-f163d4a24022" class="bulleted-list"><li style="list-style-type:disc">LEGB 룰에 따라 접근함: 가까운 곳 &gt;&gt; 먼 곳 순으로 이름 찾음<ul id="19df558b-ed61-80b6-90f6-ccee989b8b1a" class="bulleted-list"><li style="list-style-type:circle">Local: 정의된 함수 내부</li></ul><ul id="19df558b-ed61-80f1-8346-e4b8d19b82e5" class="bulleted-list"><li style="list-style-type:circle">Enclosed: 상위 함수</li></ul><ul id="19df558b-ed61-804b-8eab-e98746dc07c5" class="bulleted-list"><li style="list-style-type:circle">Global: 함수 밖</li></ul><ul id="19df558b-ed61-8058-a17a-fa95a46ddd46" class="bulleted-list"><li style="list-style-type:circle">Built-in: python이 기본적으로 가진 함수</li></ul></li></ul><ul id="19df558b-ed61-8095-9985-df34ca311e6b" class="bulleted-list"><li style="list-style-type:disc">예시:  같은 이름으로 여러 변수/함수 만들어질 수 있음<ul id="19df558b-ed61-8089-b702-e063569c31b8" class="bulleted-list"><li style="list-style-type:circle">근데 변수는 덮어쓰기 불가능 → LEGE 룰 따라 가까운 순으로 변수명 찾아 적용</li></ul><ul id="19df558b-ed61-8017-9a4f-cef74ef46b19" class="bulleted-list"><li style="list-style-type:circle">str이라는 변수 만들어서 문자 데이터 저장한 것 &gt;&gt; 근데 그러면 에러 남</li></ul><ul id="19df558b-ed61-80d6-98bb-e1d457a7c37e" class="bulleted-list"><li style="list-style-type:circle">여기에서는 바로 위에서 만들어진 str 변수를 local 위치에서 찾아서 적용한 것</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19df558b-ed61-8096-9700-d6bf7f74e685" class="code"><code class="language-Python">result = 123 # 123이라는 데이터를 result 변수에 담아 출력한 것
+print(result)
+
+result = str(123) # 숫자 123이 문자열로 변환돼 출력됨
+print(result)
+# 여기에서는 빌트인 함수인 str()를 활용한 것
+
+str = &#x27;hello&#x27;</code></pre><ul id="19df558b-ed61-8043-b786-c659cb432c61" class="bulleted-list"><li style="list-style-type:disc">예시: 함수 밖 → 안으로 들어가 이름 찾기 불가능</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19df558b-ed61-803b-9053-d0fbb557555f" class="code"><code class="language-Python">a = 1 # a라는 이름 가진 상자에 숫자 1 넣음
+def local_scope(a): # local_scope라는 함수 정의
+    return a
+a = &#x27;가나다라&#x27; # a = 1의 a가 &#x27;가나다라&#x27;로 바뀜: 함수 밖에서 안으로 접근X기 때문
+local_scope(&#x27;hello&#x27;) # local_scope로 들어가, 가장 가까운 a에 &#x27;hello&#x27; 데이터 할당</code></pre><ul id="19df558b-ed61-806a-b526-f34e60a3975d" class="bulleted-list"><li style="list-style-type:disc">예시: 로컬 바깥의 변수 a를 함수 내부로 가져와 연산할 때<ul id="19df558b-ed61-80b5-a157-c4aa6c160f72" class="bulleted-list"><li style="list-style-type:circle"><code>globla a</code> : 로컬X, 함수 외부의 글로벌 범위 탐색하라는 명령어</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19df558b-ed61-803a-ac49-fd5e27f20874" class="code"><code class="language-Python">a = 0
+def global_scope():
+    global a
+    a = a + 1
+    return a
+
+global_scope()</code></pre><h2 id="19df558b-ed61-8059-9eeb-cd152367a436" class="">7.6 재귀 함수</h2><ul id="19df558b-ed61-805f-931c-f233349d130c" class="bulleted-list"><li style="list-style-type:disc">함수 내부에서 자기 자신을 호출하는 함수<ul id="19df558b-ed61-80e3-bb06-ec5992a6e745" class="bulleted-list"><li style="list-style-type:circle">like 내부의 내부의 내부…</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19df558b-ed61-8084-821a-e63c21e3e268" class="code"><code class="language-Python">n! = 1 * 2 * 3 *...* n
+	= (n-1)! * n</code></pre><ul id="19df558b-ed61-806e-b784-e57de0672556" class="bulleted-list"><li style="list-style-type:disc">예제: 10! 구하기<ul id="19df558b-ed61-80be-827e-dbcd0dc47330" class="bulleted-list"><li style="list-style-type:circle">10! 구하려면 9! 필요, 9! 구하려면 8! 필요<p id="19df558b-ed61-80d5-979c-f0263dd300d4" class="">→ 10! 연산 실행 중인 상태에서 아래의 1!부터 올라가며 연산 이뤄지는 방식</p></li></ul><ul id="19df558b-ed61-8025-b773-eade801b18c6" class="bulleted-list"><li style="list-style-type:circle">ex. fact(10  fact(9  fact8(…)))</li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19df558b-ed61-803a-a0d1-c245566f3131" class="code"><code class="language-Python">def fact(n):
+    if n == 1:
+        return 1
+    else:
+        return fact(n-1) * n
+fact(10)</code></pre><p id="19df558b-ed61-8064-949c-f14c2b5b69c7" class="">
+</p><p id="19df558b-ed61-8035-855f-dcc38acba114" class="">
+</p><p id="19df558b-ed61-80f5-86f2-cbed0569d4e2" class="">
+</p><hr id="19af558b-ed61-80a8-9e62-c5a11c1e943d"/><h1 id="19df558b-ed61-80c5-a6b8-c2c4a31f7a1a" class="">참고자료</h1><p id="19df558b-ed61-8064-8327-d8e40bf87292" class="">[파이썬 자습서](<a href="https://docs.python.org/ko/3.13/tutorial/index.html">https://docs.python.org/ko/3.13/tutorial/index.html</a>)</p><p id="19df558b-ed61-80d2-8023-c8d5bd532056" class="">
+</p><hr id="19df558b-ed61-8039-b0c4-edb7560123a0"/><h1 id="19df558b-ed61-804f-9e4b-fe4319e8bcd8" class="">프로그래머스 입문 문제</h1><ul id="19af558b-ed61-80fc-9628-e8bd378b971b" class="bulleted-list"><li style="list-style-type:disc">다음주까지 정답률 80% 대까지는 풀자, 70% 대는 좀 어려울 수 있음</li></ul><ul id="19af558b-ed61-80f8-99f5-e11afeb866d7" class="bulleted-list"><li style="list-style-type:disc">vs code에서 파이썬 코드 실행하는 방법</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19af558b-ed61-8001-93c0-db873d3a09d9" class="code"><code class="language-Python">$ cd 두수의곱/
+$ python sol.py</code></pre><p id="19af558b-ed61-80a7-9c98-eb4488bcaf45" class="">
+</p><p id="19af558b-ed61-8083-886b-fed1cc375da6" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
